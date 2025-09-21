@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "865035716541",
+    "project_id": "numpanggg",
+    "storage_bucket": "numpanggg.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865035716541:android:15dc60fb52aaaa4f10f4d4",
+        "android_client_info": {
+          "package_name": "com.example.numpang"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAalX0p-2BVqeWDM2FrM498BCQ6uF943s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
