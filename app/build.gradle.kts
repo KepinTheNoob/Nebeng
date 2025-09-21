@@ -41,7 +41,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -60,12 +59,17 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    implementation("com.google.firebase:firebase-analytics")
+    // Firebase dependencies
     implementation(platform("com.google.firebase:firebase-bom:33.12.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    
+    // Additional dependencies
     implementation("androidx.compose.material:material-icons-extended:1.5.4")
     implementation("androidx.compose.runtime:runtime-livedata:1.5.1")
     implementation("androidx.navigation:navigation-compose:2.8.9")
     implementation("com.google.code.gson:gson:2.12.1")
     implementation("androidx.compose.material3:material3:1.4.0-alpha12")
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.34.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
 }
