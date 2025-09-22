@@ -1,11 +1,15 @@
 package com.example.numpang.ui.screen.signup
 
+import android.net.Uri
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -34,6 +38,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
+import coil.compose.AsyncImage
 import com.example.numpang.AuthState
 import com.example.numpang.AuthViewModel
 import com.example.numpang.data.Screen
@@ -44,13 +49,27 @@ fun Register(authViewModel: AuthViewModel, navController: NavController) {
     var showPassword by remember { mutableStateOf(value = false) }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var name by remember { mutableStateOf("") }
+    var nim by remember { mutableStateOf("") }
+    var phone by remember { mutableStateOf("") }
+    var photoUrl by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
     var emailError by remember { mutableStateOf("") }
     var passwordError by remember { mutableStateOf("") }
+    var nameError by remember { mutableStateOf("") }
+    var nimError by remember { mutableStateOf("") }
+    var phoneError by remember { mutableStateOf("") }
+    var photoUrlError by remember { mutableStateOf("") }
     var confirmPasswordError by remember { mutableStateOf("") }
+    var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
 
     val authState = authViewModel.authState.observeAsState()
     val context = LocalContext.current
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        selectedImageUri = uri
+    }
 
     LaunchedEffect(authState.value) {
         when(authState.value) {
@@ -70,7 +89,7 @@ fun Register(authViewModel: AuthViewModel, navController: NavController) {
     ) {
         Text("Let’s create your account!", fontSize = 26.sp, fontWeight = FontWeight.SemiBold)
 
-        Spacer(modifier = Modifier.height(101.5.dp))
+        Spacer(modifier = Modifier.height(61.5.dp))
 
         OutlinedTextField(
             value = email,
@@ -79,7 +98,44 @@ fun Register(authViewModel: AuthViewModel, navController: NavController) {
             label = { Text(emailError.ifEmpty { "Email" }, color = if(emailError.isNotEmpty()) Red else Unspecified) }
         )
 
-        Spacer(modifier = Modifier.height(43.5.dp))
+        Spacer(modifier = Modifier.height(12.dp))
+
+        OutlinedTextField(
+            value = name,
+            onValueChange = { name = it },
+            modifier = Modifier.width(300.dp),
+            label = { Text(nameError.ifEmpty { "Name" }, color = if(nameError.isNotEmpty()) Red else Unspecified) }
+        )
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        OutlinedTextField(
+            value = nim,
+            onValueChange = { nim = it },
+            modifier = Modifier.width(300.dp),
+            label = { Text(nimError.ifEmpty { "Nim" }, color = if(nimError.isNotEmpty()) Red else Unspecified) }
+        )
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        OutlinedTextField(
+            value = phone,
+            onValueChange = { phone = it },
+            modifier = Modifier.width(300.dp),
+            label = { Text(phoneError.ifEmpty { "Phone" }, color = if(phoneError.isNotEmpty()) Red else Unspecified) }
+        )
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        Button(onClick = { launcher.launch("image/*") }) {
+            Text("Select Profile Picture")
+        }
+
+        selectedImageUri?.let {
+            AsyncImage(model = it, contentDescription = "Preview", modifier = Modifier.size(100.dp))
+        }
+
+        Spacer(modifier = Modifier.height(12.dp))
 
         OutlinedTextField(
             value = password,
@@ -113,7 +169,7 @@ fun Register(authViewModel: AuthViewModel, navController: NavController) {
             color = if(passwordError.isNotEmpty()) Red else Unspecified) }
         )
 
-        Spacer(modifier = Modifier.height(43.5.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
         OutlinedTextField(
             value = confirmPassword,
@@ -159,12 +215,40 @@ fun Register(authViewModel: AuthViewModel, navController: NavController) {
                     if(password.isBlank()) "Password is required!"
                     else if(password.length < 8) "Password must have at least 8 characters!"
                     else ""
+                nameError =
+                    if(name.isBlank()) "Name is required!"
+                    else ""
+                nimError =
+                    if(nim.isBlank()) "Nim is required!"
+                    else if(nim.length <= 10) "Nim must have at least 10 characters!"
+                    else ""
+                phoneError =
+                    if(phone.isBlank()) "Phone number is required!"
+                    else if(phone.length < 8) "Phone number must have at least 8 characters!"
+                    else ""
+                photoUrlError =
+                    if(selectedImageUri == null) "Image is required!"
+                    else ""
                 confirmPasswordError =
                     if(confirmPassword.isBlank()) "Confirm is required!"
                     else if(confirmPassword != password) "Must be same with password!"
                     else ""
-                if(emailError.isEmpty() && passwordError.isEmpty() && confirmPasswordError.isEmpty()) {
-                    authViewModel.signup(email, password)
+                if(
+                    emailError.isEmpty() && passwordError.isEmpty() &&
+                    nameError.isEmpty() && nimError.isEmpty() &&
+                    phoneError.isEmpty() && photoUrlError.isEmpty() &&
+                    confirmPasswordError.isEmpty()
+                ) {
+                    selectedImageUri?.let { uri ->
+                        authViewModel.signup(
+                            email,
+                            password,
+                            name,
+                            nim,
+                            phone,
+                            uri
+                        )
+                    }
                 }
             },
             colors = ButtonDefaults.buttonColors(
