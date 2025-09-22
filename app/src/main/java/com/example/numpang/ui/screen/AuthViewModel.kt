@@ -59,7 +59,6 @@ class AuthViewModel (
         }
     }
 
-
     fun signup(
         email: String,
         password: String,
@@ -75,6 +74,7 @@ class AuthViewModel (
             }
 
             _authState.value = AuthState.Loading
+
             val result = repository.signUp(
                 email,
                 password,
@@ -83,6 +83,7 @@ class AuthViewModel (
                 phone,
                 photoUrl
             )
+            
             result.onSuccess { user ->
                 val roleResult = repository.getUserRole(user.uid)
                 roleResult.onSuccess { role ->
