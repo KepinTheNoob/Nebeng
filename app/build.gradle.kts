@@ -68,4 +68,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.12.1")
     implementation("androidx.compose.material3:material3:1.4.0-alpha12")
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.34.0")
+    implementation("com.google.firebase:firebase-storage")
+    implementation("io.coil-kt:coil-compose:2.6.0")
+
 }

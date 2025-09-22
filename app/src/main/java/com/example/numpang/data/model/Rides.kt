@@ -1,22 +1,19 @@
 package com.example.numpang.data.model
 
-import java.util.Date
-
-data class Ride(
-    val id: String = "",
-    val driverId: String = "",
-    val origin: String = "",
-    val destination: String = "",
-    val date: Date? = null,
-    val seatsAvailable: Int = 0,
-    val pricePerSeat: Double = 0.0,
-    val passengers: List<String> = emptyList(),
-    val createdAt: Date? = null,
-    val status: RideStatus = RideStatus.ACTIVE
+data class Location(
+    val address: String = "",
+    val lat: Double = 0.0,
+    val lng: Double = 0.0
 )
 
-enum class RideStatus {
-    ACTIVE,
-    COMPLETED,
-    CANCELLED
-}
+data class Rides(
+    val driverId: String = "",
+    val origin: Location = Location(),
+    val destination: Location = Location(),
+    val dateTime: com.google.firebase.Timestamp? = null, // Firestore Timestamp
+    val price: Double = 0.0,
+    val seatsAvailable: Int = 0,
+    val passengers: List<String> = emptyList(),
+    val createdAt: com.google.firebase.Timestamp? = null,
+    val status: String = "open" // open | full | cancelled
+)
