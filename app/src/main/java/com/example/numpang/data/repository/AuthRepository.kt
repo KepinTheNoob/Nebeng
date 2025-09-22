@@ -1,9 +1,11 @@
 package com.bintangjaya.cashierapp.data.repository
 
+import com.example.numpang.data.model.Users
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.toObject
 import kotlinx.coroutines.tasks.await
 
 class AuthRepository (
@@ -68,6 +70,27 @@ class AuthRepository (
 
     fun getCurrentUser(): FirebaseUser? {
         return  auth.currentUser
+    }
+
+    suspend fun getCurrentUserData(): Result<Users> {
+        return try {
+            val uid = getCurrentUser()?.uid ?: return Result.failure(Exception("No current user"))
+
+            val snapshot = db.collection("users")
+                .document(uid)
+                .get()
+                .await()
+
+            if(snapshot.exists()) {
+                val user = snapshot.toObject(Users::class.java)
+                    ?: return Result.failure(Exception("Failed to parse user"))
+                Result.success(user)
+            } else {
+                Result.failure(Exception("User not found"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 
     suspend fun getUserRole(uid: String): Result<String> {

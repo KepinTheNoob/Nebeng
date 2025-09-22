@@ -2,7 +2,7 @@ package com.example.numpang.data.model
 
 import java.util.Date
 
-data class Transaction(
+data class Transactions(
     val id: String = "",
     val rideId: String = "",
     val riderId: String = "",

@@ -2,4 +2,5 @@
     <string name="app_name">Numpang</string>
     <string name="login" />
     <string name="signup" />
+    <string name="home" />
 </resources>
