@@ -3,4 +3,6 @@
     <string name="login" />
     <string name="signup" />
     <string name="home" />
+    <string name="profile" />
+    <string name="rider" />
 </resources>

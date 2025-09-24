@@ -16,6 +16,7 @@ data class Users (
     val photoUrl: String? = "",
     val rating: Int? = 0,
     val ridesOfferedCount: Int = 0,
+    val ridesTakenCount: Int = 0,
     val createdAt: Date? = null,
     val role: Role = Role.Rider,
     val verified: Boolean = true,

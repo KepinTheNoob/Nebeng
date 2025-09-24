@@ -15,6 +15,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.numpang.data.Screen
 import com.example.numpang.ui.screen.home.Home
 import com.example.numpang.ui.screen.login.Login
+import com.example.numpang.ui.screen.profile.Profile
+import com.example.numpang.ui.screen.rider.Rider
 import com.example.numpang.ui.screen.signup.Register
 import com.google.firebase.auth.FirebaseAuth
 
@@ -44,7 +46,26 @@ fun MainContent(
             )
         }
         composable(Screen.Home.name) {
-            Home(authViewModel = authViewModel)
+            Home(
+                authViewModel = authViewModel,
+                navController = navController
+            )
+        }
+        composable(Screen.Profile.name) {
+            Profile(
+                authViewModel = authViewModel,
+                onEditClick = { navController.navigate("editProfile") },
+            )
+        }
+        composable(Screen.Rider.name) {
+            Rider(
+                onRideClick = { ride ->
+                    println("Clicked on ${ride.origin} → ${ride.destination}")
+                },
+                onBackClick = {
+                    navController.popBackStack()
+                }
+            )
         }
     }
 }

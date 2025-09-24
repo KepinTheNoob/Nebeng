@@ -45,12 +45,14 @@ import com.example.numpang.data.model.Users
 import com.google.firebase.firestore.FirebaseFirestore
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.navigation.NavController
+import com.example.numpang.data.Screen
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Home(authViewModel: AuthViewModel) {
+fun Home(authViewModel: AuthViewModel, navController: NavController) {
     var user by remember { mutableStateOf<Users?>(null) }
 
     LaunchedEffect(Unit) {
@@ -82,7 +84,7 @@ fun Home(authViewModel: AuthViewModel) {
                 },
                 actions = {
                     IconButton(
-                        onClick = {}
+                        onClick = { navController.navigate(Screen.Profile.name) }
                     ) {
                         Icon(
                             imageVector = ImageVector.vectorResource(id = R.drawable.profile),
@@ -124,7 +126,7 @@ fun Home(authViewModel: AuthViewModel) {
                 }
 
                 Button(
-                    onClick = {},
+                    onClick = { navController.navigate(Screen.Rider.name) },
                     shape = RoundedCornerShape(16.dp),
                     modifier = Modifier.weight(1f)
                 ) {

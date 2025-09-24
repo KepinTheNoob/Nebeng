@@ -10,7 +10,7 @@ data class Rides(
     val driverId: String = "",
     val origin: Location = Location(),
     val destination: Location = Location(),
-    val dateTime: com.google.firebase.Timestamp? = null, // Firestore Timestamp
+    val dateTime: com.google.firebase.Timestamp? = null,
     val price: Double = 0.0,
     val seatsAvailable: Int = 0,
     val passengers: List<String> = emptyList(),
