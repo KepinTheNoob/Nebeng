@@ -13,6 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.numpang.data.Screen
+import com.example.numpang.ui.screen.driver.Driver
 import com.example.numpang.ui.screen.home.Home
 import com.example.numpang.ui.screen.login.Login
 import com.example.numpang.ui.screen.profile.Profile
@@ -65,6 +66,13 @@ fun MainContent(
                 onBackClick = {
                     navController.popBackStack()
                 }
+            )
+        }
+        composable(Screen.Driver.name) {
+            Driver(
+                onBackClick = { navController.popBackStack() },
+                onAddRideClick = { /*navController.navigate(Screen.CreateRide.name)*/ },
+                onRideClick = { ride -> /* TODO: navigate to ride details */ }
             )
         }
     }

@@ -5,4 +5,5 @@
     <string name="home" />
     <string name="profile" />
     <string name="rider" />
+    <string name="driver" />
 </resources>

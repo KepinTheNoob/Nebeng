@@ -8,5 +8,6 @@ enum class Screen(@StringRes val title: Int) {
     Signup(title = R.string.signup),
     Home(title = R.string.home),
     Profile(title = R.string.profile),
-    Rider(title = R.string.rider)
+    Rider(title = R.string.rider),
+    Driver(title = R.string.driver)
 }

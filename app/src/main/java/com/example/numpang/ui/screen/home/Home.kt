@@ -116,7 +116,7 @@ fun Home(authViewModel: AuthViewModel, navController: NavController) {
                 modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp)
             ) {
                 Button(
-                    onClick = {},
+                    onClick = { navController.navigate(Screen.Driver.name) },
                     shape = RoundedCornerShape(16.dp),
                     modifier = Modifier.weight(1f)
                 ) {
