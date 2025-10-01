@@ -34,7 +34,7 @@ fun MainContent(
 
     NavHost(
         navController = navController,
-        startDestination = Screen.Home.name,
+        startDestination = Screen.Login.name,
         modifier = modifier
     ) {
         composable(Screen.Login.name) {

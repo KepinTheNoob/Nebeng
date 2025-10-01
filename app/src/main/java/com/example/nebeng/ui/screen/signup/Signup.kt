@@ -43,6 +43,12 @@ import com.example.nebeng.AuthState
 import com.example.nebeng.AuthViewModel
 import com.example.nebeng.data.Screen
 import kotlin.text.ifEmpty
+import android.content.Context
+import android.util.Base64
+import java.io.ByteArrayOutputStream
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import android.os.Build
 
 @Composable
 fun Register(authViewModel: AuthViewModel, navController: NavController) {
@@ -219,11 +225,11 @@ fun Register(authViewModel: AuthViewModel, navController: NavController) {
                     else ""
                 nimError =
                     if(nim.isBlank()) "Nim is required!"
-                    else if(nim.length <= 10) "Nim must have at least 10 characters!"
+                    else if(nim.length <= 9) "Nim must have at least 10 characters!"
                     else ""
                 phoneError =
                     if(phone.isBlank()) "Phone number is required!"
-                    else if(phone.length < 8) "Phone number must have at least 8 characters!"
+                    else if(phone.length < 7) "Phone number must have at least 8 characters!"
                     else ""
                 photoUrlError =
                     if(selectedImageUri == null) "Image is required!"
@@ -239,13 +245,15 @@ fun Register(authViewModel: AuthViewModel, navController: NavController) {
                     confirmPasswordError.isEmpty()
                 ) {
                     selectedImageUri?.let { uri ->
+                        val base64Image = uriToBase64(context, uri)
+
                         authViewModel.signup(
                             email,
                             password,
                             name,
                             nim,
                             phone,
-                            uri
+                            base64Image
                         )
                     }
                 }
@@ -271,4 +279,30 @@ fun Register(authViewModel: AuthViewModel, navController: NavController) {
             Text(text = "Already have an account?")
         }
     }
+}
+
+fun uriToBase64(context: Context, uri: Uri, maxSizeInBytes: Int = 1_000_000): String {
+    val source = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        ImageDecoder.createSource(context.contentResolver, uri)
+    } else {
+        @Suppress("DEPRECATION")
+        return ""
+    }
+
+    val bitmap = ImageDecoder.decodeBitmap(source)
+
+    // Optionally resize first (to avoid huge images)
+    val resized = Bitmap.createScaledBitmap(bitmap, 200, 200, true)
+
+    var quality = 100
+    var byteArray: ByteArray
+
+    do {
+        val outputStream = ByteArrayOutputStream()
+        resized.compress(Bitmap.CompressFormat.JPEG, quality, outputStream)
+        byteArray = outputStream.toByteArray()
+        quality -= 5 // reduce by steps
+    } while (byteArray.size > maxSizeInBytes && quality > 5)
+
+    return Base64.encodeToString(byteArray, Base64.DEFAULT)
 }

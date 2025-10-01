@@ -71,19 +71,10 @@ class AuthViewModel (
         name: String,
         nim: String,
         phone: String,
-        imageUri: Uri
+        imageBase64: String
     ) {
         viewModelScope.launch {
             try {
-                val storageRef = FirebaseStorage.getInstance().reference
-                val fileRef = storageRef.child("profile_images/${UUID.randomUUID()}.jpg")
-
-                // Upload to Firebase Storage
-                fileRef.putFile(imageUri).await()
-
-                // Get public download URL
-                val downloadUrl = fileRef.downloadUrl.await().toString()
-
                 if (email.isEmpty() || password.isEmpty() || name.isEmpty() || nim.isEmpty() || phone.isEmpty()) {
                     _authState.value = AuthState.Error("All fields are required")
                     return@launch
@@ -96,7 +87,7 @@ class AuthViewModel (
                     name,
                     nim,
                     phone,
-                    photoUrl = downloadUrl,
+                    photoUrl = imageBase64
                 )
 
                 result.onSuccess { user ->
@@ -111,7 +102,7 @@ class AuthViewModel (
                 }
 
             } catch (e: Exception) {
-                _authState.value = AuthState.Error(e.message ?: "Image upload failed")
+                _authState.value = AuthState.Error(e.message ?: "Signup failed")
             }
         }
     }

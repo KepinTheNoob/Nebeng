@@ -105,7 +105,6 @@ class AuthViewModel (
     suspend fun getUserRole(uid: String): String? {
         return repository.getUserRole(uid).getOrNull()
     }
-
 }
 
 sealed class AuthState {

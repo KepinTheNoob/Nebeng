@@ -47,7 +47,7 @@ class AuthRepository (
                 "phone" to phone,
                 "email" to email,
                 "photoUrl" to photoUrl,
-                "rating" to null,
+                "rating" to 0,
                 "ridesOfferedCount" to 0,
                 "createdAt" to Timestamp.now(),
                 "role" to "Rider",
