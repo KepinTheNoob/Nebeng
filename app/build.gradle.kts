@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.numpang"
+    namespace = "com.example.nebeng"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.numpang"
+        applicationId = "com.example.nebeng"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
