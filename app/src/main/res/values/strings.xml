@@ -1,6 +1,10 @@
 <resources>
-    <string name="app_name">Numpang</string>
+    <string name="app_name">Nebeng</string>
     <string name="login" />
     <string name="signup" />
     <string name="home" />
+    <string name="profile" />
+    <string name="rider" />
+    <string name="driver" />
+    <string name="rideDetail" />
 </resources>

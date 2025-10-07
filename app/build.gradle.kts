@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.numpang"
+    namespace = "com.example.nebeng"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.numpang"
+        applicationId = "com.example.nebeng"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
@@ -73,4 +73,5 @@ dependencies {
     implementation("com.google.firebase:firebase-storage")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+    implementation("io.coil-kt:coil-compose:2.4.0")
 }
