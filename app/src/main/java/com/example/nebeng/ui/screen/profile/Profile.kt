@@ -87,7 +87,6 @@ fun Profile(
 
             // User Info
             Text("${user?.name}", fontSize = 22.sp, fontWeight = FontWeight.Bold)
-            Text("${user?.nim}", fontSize = 14.sp, color = Color.Gray)
             Text("${user?.phone}", fontSize = 14.sp)
             Text("${user?.email}", fontSize = 14.sp)
 

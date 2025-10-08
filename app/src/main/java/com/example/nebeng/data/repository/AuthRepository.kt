@@ -1,15 +1,13 @@
-package com.bintangjaya.cashierapp.data.repository
+package com.example.nebeng.data.repository
 
-import com.example.nebeng.data.model.Rides
 import com.example.nebeng.data.model.Users
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
-import java.util.UUID
 
-class AuthRepository (
+public class AuthRepository (
     private val auth: FirebaseAuth = FirebaseAuth.getInstance(),
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 ) {
@@ -33,7 +31,6 @@ class AuthRepository (
         email: String,
         password: String,
         name: String,
-        nim: String,
         phone: String,
         photoUrl: String,
     ): Result<FirebaseUser> {
@@ -43,7 +40,6 @@ class AuthRepository (
 
             val userDoc = hashMapOf(
                 "name" to name,
-                "nim" to nim,
                 "phone" to phone,
                 "email" to email,
                 "photoUrl" to photoUrl,
@@ -111,4 +107,6 @@ class AuthRepository (
             Result.failure(e)
         }
     }
+
+    companion object
 }

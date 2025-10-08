@@ -1,6 +1,5 @@
 package com.example.nebeng.ui.screen.rides.driver
 
-import android.webkit.WebStorage
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -38,14 +37,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.bintangjaya.cashierapp.data.repository.AuthRepository
+import com.example.nebeng.data.repository.AuthRepository
 import com.example.nebeng.data.model.Location
 import com.example.nebeng.data.model.Rides
 import com.example.nebeng.ui.screen.rides.RidesViewModel
 import java.text.NumberFormat
 import java.util.Locale
-import java.util.UUID
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -2,7 +2,7 @@ package com.example.nebeng.ui.screen.rides
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bintangjaya.cashierapp.data.repository.AuthRepository
+import com.example.nebeng.data.repository.AuthRepository
 import com.example.nebeng.data.model.Rides
 import com.example.nebeng.data.model.Users
 import com.google.firebase.firestore.FirebaseFirestore

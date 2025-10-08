@@ -1,16 +1,12 @@
 package com.example.nebeng
 
-import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bintangjaya.cashierapp.data.repository.AuthRepository
+import com.example.nebeng.data.repository.AuthRepository
 import com.example.nebeng.data.model.Users
-import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
-import java.util.UUID
 import kotlin.onFailure
 import kotlin.onSuccess
 import kotlin.text.isEmpty
@@ -69,13 +65,12 @@ class AuthViewModel (
         email: String,
         password: String,
         name: String,
-        nim: String,
         phone: String,
         imageBase64: String
     ) {
         viewModelScope.launch {
             try {
-                if (email.isEmpty() || password.isEmpty() || name.isEmpty() || nim.isEmpty() || phone.isEmpty()) {
+                if (email.isEmpty() || password.isEmpty() || name.isEmpty() || phone.isEmpty()) {
                     _authState.value = AuthState.Error("All fields are required")
                     return@launch
                 }
@@ -85,7 +80,6 @@ class AuthViewModel (
                     email,
                     password,
                     name,
-                    nim,
                     phone,
                     photoUrl = imageBase64
                 )
